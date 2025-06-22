@@ -1,91 +1,73 @@
-Open Syobon Action
-==================
-###### Original game developer: Chiku (ちく)
-###### Open-source port developer: Mathew Velasquez
-###### Developer/maintainer of this fork: Karen／明美 (@angelXwind)
-#### [English] [[日本語]](README_ja.md)
+# OpenSyobonAction (Universal macOS Port)
 
-Open Syobon Action (オープンしょぼんのアクション) is an open-source cross-platform port of the unforgiving Japanese platformer using SDL.
+## Description
 
-It is also called "Shobon no Action," "Neko Mario," "Cat Mario," or "Cat MeOUCHio."
+This is a modern, universal (Apple Silicon + Intel) port of Open Syobon Action (しょぼんのアクション), a notoriously challenging platformer.  
+This fork brings the game up to date with SDL2, supports both ARM64 and x86_64 Macs, and includes a number of codebase improvements and cleanups.
 
-Notes
------
-* Rather than just playing this game by yourself, it is much more enjoyable to let someone who's never tried it before try playing the game.
-* Those who are under 12 years old are not allowed to play.
-* Please be aware that by playing this game, there is a possibility that you may develop trust issues towards other humans.
-* Please be aware that there is a possibility of getting stressed out while playing this game.
-* If any problems are caused by this game, please understand that the developers cannot take any responsibility.
-* If you wish to distribute this game to a large amount of people, please give credit to the original developer, Chiku (ちく).
-* The game's text is entirely in Japanese, but you do not need to understand the Japanese language in order to play.
+## Installation
 
-Controls (Keyboard)
--------------------
-* Left/Right: Move
-* Z or Up: Jump
-* Space: Double-speed
-* 0 (while in-game): Self-destruction
-* Escape: Exit
-* F1: Return to title screen
-* 1-9 (while at the title screen): Select level
-* 0 at the title screen: Mystery Dungeon (there is a possibility that some bugs may occur)
+### Prerequisites
 
-Bugs
-----
-Please report any bugs at the GitHub issue tracker: https://github.com/angelXwind/OpenSyobonAction/issues
+You need the following libraries installed for both ARM64 and x86_64 architectures:
 
-Command Line Arguments
-----------------------
-`-nosound` - Disables sound
+- SDL2
+- SDL2_image
+- SDL2_mixer
+- SDL2_ttf
+- SDL2_gfx
 
-Dependencies
-------------
-* SDL
-* SDL_image
-* SDL_mixer
-* SDL_ttf
-* SDL_gfx
+#### On Apple Silicon (ARM64 Homebrew, default: `/opt/homebrew`):
 
-Gamepad Notes
--------------
-Your gamepad or joystick may not work by default with Open Syobon Action. Check joyconfig.h for more information.
+```sh
+brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf sdl2_gfx
+```
 
-Unimplemented
--------------
-* Font thickness (Not really important)
-* Port to other operating systems (OS X, iOS, Android, etc.)
+#### On Intel (x86_64 Homebrew, default: `/usr/local`):
 
-Release Changelog
------------------
-**Open Syobon Action RC 3**
-* Fixed audio on Windows 7 and above
+If you have x86_64 Homebrew installed (under `/usr/local`), run:
 
-**Open Syobon Action RC 2**
-* First Windows release!
-* Dvorak keyboard support
-* Error messages more detailed and directed to stdout
-* Compiled code optimized for speed
-* Better initialization and de-initialization code, so you can be confident
- that all resources are freed.
-* Optional sound: The game will no longer crash if there is no audio device
- available, and all sound can be disabled with the -nosound parameter
-* Minor bugfixes here and there
+```sh
+arch -x86_64 /usr/local/bin/brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf sdl2_gfx
+```
 
-**Open Syobon Action RC 1**
-* Fixed incorrect "box" rendering (used to draw green pipes)
-* Fixed random crashing at certain parts (thanks to mekuso for the bug report)
-* Volumes now appropriately altered
-* Gamepad support added
-* Now uses original indexed PNGs, with original filenames (capital PNG)
-* Minor tweaks and optimizations
+### Building
 
-**Open Syobon Action v0.9:**
-* Fixed incorrect character rendering, uses font very similar to the original game
- (sazanami-gothic.ttf rather than msgothic.ttf)
-* Changed encoding of the original readme and source code to UTF-8, so they can
- be viewed correctly with most software
-* Changed DOS newlines to Unix newlines in source and readme
-* Source code has been cleaned up with "indent", removed a few obsolete comments
+To build a universal binary (runs on both Apple Silicon and Intel Macs):
 
-**Open Syobon Action v0.8:**
-* First release
+```sh
+make clean
+make
+```
+
+This will produce a `SyobonAction` binary that is universal.
+
+### Running
+
+```sh
+./SyobonAction
+```
+
+#### Command-line options
+
+- `-nosound` — disables sound
+
+## Controls
+
+- Arrow keys: Move
+- Z or Up: Jump
+- Space (hold): Run (double speed)
+- O: Self-destruct
+- ESC: Quit
+- F1: Return to title
+- On the title screen, press 1–9 to start at a specific stage, 0 for a random dungeon (may be buggy)
+
+## Summary of Changes from the Original
+
+- **SDL2 Port:** Migrated from SDL1 to SDL2 for modern compatibility.
+- **Universal Binary:** The build system now produces a binary that runs natively on both ARM64 and x86_64 Macs.
+- **Dependency Updates:** Uses SDL2_gfx for graphics primitives; all SDL2 dependencies are now required.
+- **Makefile:** Updated to support universal builds and proper Homebrew paths for both architectures.
+- **Code Modernization:** Numerous cleanups, bugfixes, and improved resource management.
+- **Sound System:** Improved audio initialization and error handling.
+- **Input Handling:** Modernized controller and keyboard input code.
