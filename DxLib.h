@@ -1,12 +1,12 @@
 //This file is a reverse engineered "DxLib.h" to the extent that
 //Syobon Action uses it. Minor functions are just replaced with SDL
 //counterparts.
-#include <SDL/SDL.h>
-#include <SDL/SDL_rotozoom.h>
-#include <SDL/SDL_gfxPrimitives.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_mixer.h>
-#include <SDL/SDL_ttf.h>
+#include "SDL.h"
+#include "SDL2_rotozoom.h"
+#include "SDL2_gfxPrimitives.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
@@ -18,7 +18,6 @@
 #define FALSE 0
 #define byte unsigned char
 
-#define ScreenFlip() SDL_Flip(screen)
 #define GetNowCount() SDL_GetTicks()
 
 //UNIMPLEMENTED - macro substitution
@@ -35,9 +34,12 @@ Mix_Music* LoadMusicMem(const char* f);
 #define CheckSoundMem(s) !s
 
 int DxLib_Init();
+void ScreenFlip();
 
-//Main screen
+//Main screen and renderer
 extern SDL_Surface *screen;
+extern SDL_Renderer *renderer;
+extern SDL_Window *window;
 
 //Fonts
 #define FONT_MAX 64
@@ -98,3 +100,11 @@ SDL_Surface *DerivationGraph(int srcx, int srcy, int width, int height,
 
 //Noticably different than the original
 SDL_Surface *LoadGraph(const char *filename);
+
+// SDL2_gfx surface-based wrapper declarations
+int pixelColor(SDL_Surface *dst, Sint16 x, Sint16 y, Uint32 color);
+int lineColor(SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
+int rectangleColor(SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
+int boxColor(SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
+int ellipseColor(SDL_Surface *dst, Sint16 xc, Sint16 yc, Sint16 rx, Sint16 ry, Uint32 color);
+int filledEllipseColor(SDL_Surface *dst, Sint16 xc, Sint16 yc, Sint16 rx, Sint16 ry, Uint32 color);

@@ -4701,45 +4701,7 @@ int rand(int Rand)
 }
 
 //終了
-void deinit()
-{
-    setc0();
-    FillScreen();
-    DrawString(200, 200, "EXITING...", GetColor(255, 255, 255));
-    SDL_Flip(screen);
 
-//SURFACES
-    for (t = 0; t < 51; t++)
-	SDL_FreeSurface(mgrap[t]);
-    for (int i = 0; i < 161; i++)
-	for (int j = 0; j < 8; j++)
-	    SDL_FreeSurface(grap[i][j]);
-//--
-
-//SOUNDS
-    for (int i = 1; i < 6; i++)
-	Mix_FreeMusic(otom[i]);
-    for (int i = 1; i < 19; i++)
-	Mix_FreeChunk(oto[i]);
-//--
-
-//Font
-    for (int i = 0; i < FONT_MAX; i++)
-	TTF_CloseFont(font[i]);
-
-//Joystick
-    SDL_JoystickClose(joystick);
-
-//Close libraries
-    IMG_Quit();
-    TTF_Quit();
-    Mix_Quit();
-    SDL_Quit();
-}
-
-//画像関係
-//{
-//色かえ(指定)
 void setcolor(int red, int green, int blue)
 {
     color = GetColor(red, green, blue);
